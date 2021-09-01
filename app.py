@@ -70,7 +70,7 @@ st.markdown("---")
 ################################################################################
 # Display a Token
 ################################################################################
-st.markdown("## Display an Minted Card")
+st.markdown("## Display Minted Cards")
 
 selected_address = st.selectbox("Select Account to display", options=accounts)
 
