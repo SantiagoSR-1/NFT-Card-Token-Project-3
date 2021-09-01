@@ -25,7 +25,7 @@ def load_contract():
         contract_abi = json.load(f)
 
     # Set the contract address (this is the address of the deployed contract)
-    contract_address = "0x70664D2A998a467e19D85064CFdB5d5bfD33fA88"
+    contract_address = "0x0664F1bAEe73534e78192D98378F88eC4D4108EE"
 
     # Get the contract
     contract = w3.eth.contract(
@@ -78,7 +78,7 @@ tokens = contract.functions.balanceOf(selected_address).call()
 
 st.write(f"This address owns {tokens} Cards")
 
-token_id = st.selectbox("Artwork Cards", list(range(tokens)))
+token_id = st.selectbox("Artwork Cards Index Position", list(range(tokens)))
 
 if st.button("Display"):
 
@@ -96,6 +96,34 @@ if st.button("Display"):
     st.write(f"The initial value in ETH is {initial_appraisal_value}")
 
     st.image(token_uri)
+st.markdown("---")
+
+################################################################################
+# Trade Card
+################################################################################
+st.markdown('## Trade Cards')
+
+from_address = st.selectbox("Select Account to trade from", options=accounts)
+from_tokens = contract.functions.balanceOf(from_address).call()
+
+st.write(f"This address owns {tokens} Cards")
+
+token_id = st.selectbox("Tradable Cards Index Position", list(range(tokens)))
+
+to_address = st.selectbox("Select Account to trade to", options=accounts)
+to_tokens = contract.functions.balanceOf(to_address).call()
+
+if st.button("Trade Card"):
+
+    """tx_has = contract.functions.tradeFunction(
+        from_address,
+        to,
+        token_id
+    ).transact({"from": w3.eth.accounts[0]})
+    receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    st.write(receipt)
+    """""
+st.markdown("---")
 
 ################################################################################
 # Appraise Art
@@ -120,7 +148,7 @@ st.markdown("---")
 ################################################################################
 # Get Appraisals
 ################################################################################
-st.markdown("## Get the appraisal report history")
+st.markdown("## Get card appraisal report history")
 art_token_id = st.number_input("Card ID", value=0, step=1)
 if st.button("Get Appraisal Reports"):
     appraisal_filter = contract.events.Appraisal.createFilter(
