@@ -115,14 +115,14 @@ to_tokens = contract.functions.balanceOf(to_address).call()
 
 if st.button("Trade Card"):
 
-    """tx_has = contract.functions.tradeFunction(
+    trade_hash = contract.functions.transferFrom(
         from_address,
-        to,
+        to_address,
         token_id
     ).transact({"from": w3.eth.accounts[0]})
-    receipt = w3.eth.waitForTransactionReceipt(tx_hash)
+    receipt = w3.eth.waitForTransactionReceipt(trade_hash)
     st.write(receipt)
-    """""
+    
 st.markdown("---")
 
 ################################################################################
