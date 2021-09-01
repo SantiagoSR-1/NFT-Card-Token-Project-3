@@ -21,7 +21,7 @@ w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:7545"))
 def load_contract():
 
     # Load the contract ABI
-    with open(Path('./contracts/compiled/artregistry_abi.json')) as f:
+    with open(Path('./Registry/compiled/artregistry_abi.json')) as f:
         contract_abi = json.load(f)
 
     # Set the contract address (this is the address of the deployed contract)
