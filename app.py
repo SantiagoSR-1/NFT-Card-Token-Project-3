@@ -40,7 +40,7 @@ def load_contract():
 contract = load_contract()
 
 
-st.title("Card Mint and Trading System")
+st.title("Card Mint and Trading MVP")
 st.write("Choose an account to get started")
 accounts = w3.eth.accounts
 address= st.selectbox("Select Account", options=accounts)
