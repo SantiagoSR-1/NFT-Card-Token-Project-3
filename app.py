@@ -122,7 +122,23 @@ if st.button("Trade Card"):
     ).transact({'from': from_address, 'to': to_address, 'gas': 1000000})
     receipt = w3.eth.waitForTransactionReceipt(trade_hash)
     st.write(receipt)
-    
+
+if st.button("Display Trade"):
+
+    # Use the contract's `ownerOf` function to get the art token owner
+    owner = contract.functions.ownerOf(token_id).call()
+
+    st.write(f"The Card is registered to {to_address}")
+
+    # Use the contract's `tokenURI` function to get the art token's URI
+    token_uri = contract.functions.tokenURI(token_id).call()
+
+    st.write(f"The tokenURI is {token_uri}")
+    st.write(f"The Card name is {artwork_name}")
+    st.write(f"The Artist name is {artist_name}")
+    st.write(f"The initial value in ETH is {initial_appraisal_value}")
+
+    st.image(token_uri)
 st.markdown("---")
 
 ################################################################################
