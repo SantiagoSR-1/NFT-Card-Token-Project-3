@@ -106,20 +106,22 @@ st.markdown('## Trade Cards')
 from_address = st.selectbox("Select Account to trade from", options=accounts)
 from_tokens = contract.functions.balanceOf(from_address).call()
 
-st.write(f"This address owns {tokens} Cards")
+st.write(f"The 'from' address owns {from_tokens} Cards")
 
-token_id = st.selectbox("Tradable Cards Index Position", list(range(tokens)))
+fromToken_id = st.selectbox("Tradable Cards Index Position", list(range(from_tokens)))
 
 to_address = st.selectbox("Select Account to trade to", options=accounts)
 to_tokens = contract.functions.balanceOf(to_address).call()
 
+st.write(f"The 'to' address owns {to_tokens} Cards")
+
 if st.button("Trade Card"):
 
-    trade_hash = contract.functions.transferFrom(
+    trade_hash = contract.functions.safeTransferFrom(
         from_address,
         to_address,
-        token_id
-    ).transact({'from': from_address, 'to': to_address, 'token_id': token_id, 'gas': 1000000})
+        fromToken_id,
+    ).transact({'from': from_address, 'to': to_address, 'tokenId': fromToken_id})
     receipt = w3.eth.waitForTransactionReceipt(trade_hash)
     st.write(receipt)
 
@@ -128,19 +130,8 @@ if st.button("Display Trade"):
     # Use the contract's `ownerOf` function to get the art token owner
     owner = contract.functions.ownerOf(token_id).call()
 
-    st.write(f"The Card is registered to {to_address}")
-
-    # Use the contract's `tokenURI` function to get the art token's URI
-    token_uri = contract.functions.tokenURI(token_id).call()
-
-    st.write(f"The tokenURI is {token_uri}")
-    st.write(f"The Card name is {artwork_name}")
-    st.write(f"The Artist name is {artist_name}")
-    st.write(f"The initial value in ETH is {initial_appraisal_value}")
-
-    st.image(token_uri)
+    st.write(f"The Card is registered to {owner}")
 st.markdown("---")
-
 ################################################################################
 # Appraise Art
 ################################################################################
