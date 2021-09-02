@@ -119,7 +119,7 @@ if st.button("Trade Card"):
         from_address,
         to_address,
         token_id
-    ).transact({'from': from_address, 'to': to_address, 'gas': 1000000})
+    ).transact({'from': from_address, 'to': to_address, 'token_id': token_id, 'gas': 1000000})
     receipt = w3.eth.waitForTransactionReceipt(trade_hash)
     st.write(receipt)
 
