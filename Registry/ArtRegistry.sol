@@ -14,7 +14,6 @@ contract ArtRegistry is ERC721Full {
     mapping(uint256 => Artwork) public artCollection;
 
     event Appraisal(uint256 tokenId, uint256 appraisalValue, string reportURI);
-    event ApprovalForAll(owner, operator, approved);
 
     function registerArtwork(
         address owner,
